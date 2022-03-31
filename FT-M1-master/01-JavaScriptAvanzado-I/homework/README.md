@@ -10,6 +10,7 @@ Determiná que será impreso en la consola, sin ejecutar el código.
 > Investiga cuál es la diferencia entre declarar una variable con `var` y directamente asignarle un valor.
 
 ```javascript
+
 x = 1;
 var a = 5;
 var b = 10;
@@ -18,24 +19,33 @@ var c = function(a, b, c) {
   console.log(x);
   console.log(a);
   var f = function(a, b, c) {
-    b = a;
-    console.log(b);
-    b = c;
+    b = a; 
+    console.log(b);//8
+    b = c; //10
     var x = 5;
   }
-  f(a,b,c);
-  console.log(b);
+  f(a,b,c);//8
+  console.log(b); //9
 }
-c(8,9,10);
-console.log(b);
-console.log(x);
+c(8,9,10); 
+console.log(b);//10
+console.log(x);//1
 ```
 
+
+
+
+
 ```javascript
-console.log(bar);
-console.log(baz);
-foo();
-function foo() { console.log('Hola!'); }
+
+foo() //hola!
+baz //2
+bar //1
+
+console.log(bar); //undefined
+console.log(baz);//undefined
+foo(); //undefined
+function foo() { console.log('Hola!'); } //hola!
 var bar = 1;
 baz = 2;
 ```
@@ -45,19 +55,19 @@ var instructor = "Tony";
 if(true) {
     var instructor = "Franco";
 }
-console.log(instructor);
+console.log(instructor); //franco
 ```
 
 ```javascript
 var instructor = "Tony";
-console.log(instructor);
+console.log(instructor); //tony
 (function() {
    if(true) {
       var instructor = "Franco";
-      console.log(instructor);
+      console.log(instructor); //franco
    }
 })();
-console.log(instructor);
+console.log(instructor); //tony
 ```
 ```javascript
 var instructor = "Tony";
@@ -65,33 +75,33 @@ let pm = "Franco";
 if (true) {
     var instructor = "The Flash";
     let pm = "Reverse Flash";
-    console.log(instructor);
-    console.log(pm);
+    console.log(instructor);//the flash
+    console.log(pm); //reverse flash
 }
-console.log(instructor);
-console.log(pm);
+console.log(instructor); //the flash
+console.log(pm); //franco
 ```
 ### Coerción de Datos
 
 ¿Cuál crees que será el resultado de la ejecución de estas operaciones?:
 
 ```javascript
-6 / "3"
-"2" * "3"
-4 + 5 + "px"
-"$" + 4 + 5
-"4" - 2
-"4px" - 2
+6 / "3" //2
+"2" * "3" //6
+4 + 5 + "px" //"9px"
+"$" + 4 + 5 //"$45"
+"4" - 2 //2
+"4px" - 2 //NaN
 7 / 0
-{}[0]
-parseInt("09")
-5 && 2
-2 && 5
-5 || 0
-0 || 5
-[3]+[3]-[10]
-3>2>1
-[] == ![]
+{}[0]//[ 0 ]
+parseInt("09")//9
+5 && 2 //2
+2 && 5 //5
+5 || 0 //5
+0 || 5 //5
+[3]+[3]-[10]//23
+3>2>1 //false
+[] == ![]//true 
 ```
 
 > Si te quedó alguna duda repasá con [este artículo](http://javascript.info/tutorial/object-conversion).
@@ -100,10 +110,10 @@ parseInt("09")
 ### Hoisting
 
 ¿Cuál es el output o salida en consola luego de ejecutar este código? Explicar por qué:
-
+// primero retornara undefined porque a no esta definida en el momento en que se la llama, luego retorna 2 porque gracias al hoisting puede usarse una funcion que aun no fue declarada.
 ```javascript
 function test() {
-   console.log(a);
+   console.log(a); //undefined
    console.log(foo());
 
    var a = 1;
@@ -112,7 +122,7 @@ function test() {
    }
 }
 
-test();
+test(); //undefined, 2
 ```
 
 Y el de este código? :
@@ -128,13 +138,17 @@ function getFood(food) {
     return snack;
 }
 
-getFood(false);
+getFood(false); //no retorna nada
 ```
 
 
 ### This
 
 ¿Cuál es el output o salida en consola luego de ejecutar esté código? Explicar por qué:
+
+//la funcion getFullname nos retornara "aurelio de la rosa" ya que es el objeto al que apunta el this por el contexto, ahora al declarar la variable test con la funcion y propiedad del objeto, su contexto cambia al mismo donde se encuentra declarado test, donde la variable fullname a la que hace referencia el this ahora, es la que contiene a juan perez.
+
+
 
 ```javascript
 var fullname = 'Juan Perez';
@@ -143,7 +157,7 @@ var obj = {
    prop: {
       fullname: 'Aurelio De Rosa',
       getFullname: function() {
-         return this.fullname;
+         return this.fullname; //aurelio de rosa
       }
    }
 };
@@ -152,7 +166,7 @@ console.log(obj.prop.getFullname());
 
 var test = obj.prop.getFullname;
 
-console.log(test());
+console.log(test()); //Juan perez
 ```
 
 ### Event loop
@@ -161,10 +175,10 @@ Considerando el siguiente código, ¿Cuál sería el orden en el que se muestra 
 
 ```javascript
 function printing() {
-   console.log(1);
-   setTimeout(function() { console.log(2); }, 1000);
-   setTimeout(function() { console.log(3); }, 0);
-   console.log(4);
+   console.log(1); //1
+   setTimeout(function() { console.log(2); }, 1000);//2
+   setTimeout(function() { console.log(3); }, 0);//3
+   console.log(4);//4
 }
 
 printing();
