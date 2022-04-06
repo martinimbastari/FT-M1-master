@@ -7,6 +7,9 @@ function nFactorial(n) {
   // devolvé el factorial de n (n!)
   // ej:
   // el factorial de 3 es 6 (3 * 2 * 1)
+  if (n > -1 && n < 2) return 1;
+  else if (n < 0) return 0;
+  return n * nFactorial(n - 1);
 }
 
 function nFibonacci(n) {
@@ -15,6 +18,12 @@ function nFibonacci(n) {
   // nFibonacci(0) // 0  // el elemento 0 es cero
   // nFibonacci(1) // 1 // el elemento 1 es 1
   // nFibonacci(6) // 1 // el elemento 6 es 8
+
+if (n===0 || n===1) return n;
+
+// retornamos el numero ingresado por parametro (n) sumado a su posicion anterior y luego a la posicion anterior de ese mismo.
+//ej: 5, nFibonacci(3) + nFibonacci(2) = 5
+return nFibonacci(n-1) + nFibonacci(n-2);
 
 }
 
@@ -25,11 +34,23 @@ function nFibonacci(n) {
 // size: Devuelve el número de elementos que contiene la queue.
 
 function Queue() {
-
+  this.cola = [];
+  //Queue.prototype.enqueue= function(){}
+  Queue.prototype.enqueue = function (i) {
+    return this.cola.push(i);
+  }
+  Queue.prototype.dequeue = function (i) {
+    return this.cola.shift(i);
+  }
+  Queue.prototype.size = function (i) {
+    return this.cola.length;
+  }
 }
 
+
+
 // No modifiquen nada debajo de esta linea
-// --------------------------------
+// --------------------------------  
 
 module.exports = {
   Queue,
